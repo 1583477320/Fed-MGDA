@@ -42,7 +42,7 @@ class CNNMnist(nn.Module):
             nn.ReLU(),
             
             nn.Flatten(),  # 展平特征图
-            nn.Linear(64 * 9 * 9, 128),
+            nn.Linear(3136, 128),
             nn.ReLU(),
             # nn.Dropout(),
             nn.Linear(128, 10)
