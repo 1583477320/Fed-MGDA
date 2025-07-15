@@ -113,6 +113,7 @@ if __name__ == '__main__':
     user_test_accuracy, user_test_loss = [], []
     val_acc_list, net_list = [], []
     cv_loss, cv_acc = [], []
+    test_acc_list, test_loss_list = [],[]
     print_every = 10
     val_loss_pre, counter = 0, 0
     # new
@@ -320,9 +321,10 @@ if __name__ == '__main__':
             test_acc, test_loss = test_inference(args, global_model, test_dataset)
             total_accuracy.append(test_acc)
 
-    # Test inference after completion of training
-    test_acc, test_loss = test_inference(args, global_model, test_dataset)
-
+        # Test inference after completion of training
+        test_acc, test_loss = test_inference(args, global_model, test_dataset)
+        test_acc_list.append(test_acc)
+        test_loss_list.append(test_loss)
 
     # For Adult dataset, also test on phd and non-phd domain
     if args.dataset == 'adult':
@@ -445,8 +447,50 @@ if __name__ == '__main__':
             txtfile.write("\n |---- Test Accuracy non-phd: {:.2f}%".format(100 * non_phd_test_acc))
         txtfile.write('\n Total Run Time: {0:0.4f}'.format(time.time() - start_time))
 
+    # 绘制loss图
+    # 绘制训练集损失曲线
+    fig, ax = plt.subplots()
+    ax.semilogy(range(len(train_loss)), train_loss, label="{}".format('train_loss'))
+    ax.spines['left'].set_position('zero')  # Y轴在x=0处
+    ax.set_xlim(left=0)  # 只显示x正半轴
+    ax.set_title("Train Loss")
+    ax.set_xlabel("Communication rounds")
+    ax.set_ylabel("Train Loss")
+    # ax.set_yticks([0.01, 0.1, max(train_loss)])
+    ax.set_yticks([0.01, 0.1, max(train_loss)])
+    plt.legend()
+    plt.grid(False)
+    # 保存图像
+    plt.savefig('/kaggle/working/task1_mulit_loss_curve.png', dpi=300, bbox_inches='tight')
 
+    fig, ax = plt.subplots()
+    ax.semilogy(range(len(test_loss_list)), test_loss_list, label="{}".format('test_loss_list'))
+    ax.spines['left'].set_position('zero')  # Y轴在x=0处
+    ax.set_xlim(left=0)  # 只显示x正半轴
+    ax.set_title("Test Loss")
+    ax.set_xlabel("Communication rounds")
+    ax.set_ylabel("Test Loss")
+    # ax.set_yticks([0.01, 0.1, max(test_loss_list)])
+    ax.set_yticks([0.01, 0.1, max(test_loss_list)])
+    plt.legend()
+    plt.grid(False)
+    # 保存图像
+    plt.savefig('/kaggle/working/task1_mulit_loss_curve.png', dpi=300, bbox_inches='tight')
 
+    fig, ax = plt.subplots()
+    ax.plot(range(len(test_acc_list)), test_acc_list, label="{}".format('test_acc_list'))
+    ax.spines['left'].set_position('zero')  # Y轴在x=0处
+    ax.set_xlim(left=0)  # 只显示x正半轴
+    ax.set_title("Test acc")
+    ax.set_xlabel("Communication rounds")
+    ax.set_ylabel("Test acc")
+    # ax.set_yticks([0.01, 0.1, max(test_loss_list)])
+    ax.set_yticks([1, 10, max(test_acc_list)])
+    plt.legend()
+    plt.grid(False)
+    # 保存图像
+    plt.savefig('/kaggle/working/task1_mulit_loss_curve.png', dpi=300, bbox_inches='tight')
 
+    plt.show()
 
 
