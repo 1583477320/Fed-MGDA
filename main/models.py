@@ -40,9 +40,7 @@ class CNNMnist(nn.Module):
             nn.Dropout(0.3),
             nn.MaxPool2d(kernel_size=2, stride=2),
             nn.ReLU(),
-
-        ),
-        self.task1_head = nn.Sequential(
+            
             nn.Flatten(),  # 展平特征图
             nn.Linear(64 * 9 * 9, 128),
             nn.ReLU(),
@@ -51,8 +49,8 @@ class CNNMnist(nn.Module):
         )
 
     def forward(self, x):
-        features = self.shared_layer(x)
-        return self.task1_head(features)
+        out = self.shared_layer(x)
+        return out
 
 class Adult(nn.Module):   # logistic regression for adult dataset
     def __init__(self, dim_in=99, dim_out=2):
