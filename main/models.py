@@ -27,7 +27,7 @@ class MLP(nn.Module):
 class CNNMnist(nn.Module):
     def __init__(self, args):
         super(CNNMnist, self).__init__()
-        self.shared_parameters = nn.Sequential(
+        self.shared_layer = nn.Sequential(
             # 第一个卷积块
             nn.Conv2d(1, 32, kernel_size=3, padding=1),
             # nn.BatchNorm2d(32),
