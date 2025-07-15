@@ -10,6 +10,7 @@ import pickle
 import numpy as np
 import quadprog
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 import torch
 from tensorboardX import SummaryWriter
