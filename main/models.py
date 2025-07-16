@@ -50,7 +50,7 @@ class CNNMnist(nn.Module):
 
     def forward(self, x):
         out = self.shared_layer(x)
-        return out
+        return F.log_softmax(out, dim=1)
 
 class Adult(nn.Module):   # logistic regression for adult dataset
     def __init__(self, dim_in=99, dim_out=2):
