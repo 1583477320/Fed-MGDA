@@ -476,7 +476,7 @@ if __name__ == '__main__':
     plt.legend()
     plt.grid(False)
     # 保存图像
-    plt.savefig('/kaggle/working/task1_mulit_loss_curve.png', dpi=300, bbox_inches='tight')
+    plt.savefig('/kaggle/working/task1_mulit_eval_loss_curve.png', dpi=300, bbox_inches='tight')
 
     fig, ax = plt.subplots()
     ax.plot(range(len(test_acc_list)), test_acc_list, label="{}".format('test_acc_list'))
@@ -486,11 +486,11 @@ if __name__ == '__main__':
     ax.set_xlabel("Communication rounds")
     ax.set_ylabel("Test acc")
     # ax.set_yticks([0.01, 0.1, max(test_loss_list)])
-    ax.set_yticks([1, 10, max(test_acc_list)])
+    # ax.set_yticks([1, 10, max(test_acc_list)])
     plt.legend()
     plt.grid(False)
     # 保存图像
-    plt.savefig('/kaggle/working/task1_mulit_loss_curve.png', dpi=300, bbox_inches='tight')
+    plt.savefig('/kaggle/working/task1_mulit_acc_curve.png', dpi=300, bbox_inches='tight')
 
     plt.show()
 
